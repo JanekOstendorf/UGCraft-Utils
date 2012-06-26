@@ -3,16 +3,18 @@
 /**
  * @author Janek Ostendorf (ozzy) <ozzy2345de@gmail.com>
  * @copyright Copyright (c) Janek Ostendorf
- * @license http://opensource.org/licenses/gpl-3.0.html GNU General Public License, version 3
+ * @license http://opensource.org/licenses/gpl-3.0.html GNU General Public License, version 3 
+ * @package UGCraft-Utils
  */
 
-require_once './Levelled.class.php';
+require_once ABSPATH.'custom-php/Levelled/Levelled.class.php';
+require_once ABSPATH.'custom-php/iConomy/iConomy.class.php';
 
-$dir = '/home/minecraft/ugcraft/plugins/Levelled/';
+$dir = '/home/minecraft/ugcraft/plugins/';
 
-$status = @new Levelled($dir.'config.yml', $dir.'storage.yml');
+$levelled = @new Levelled($dir.'Levelled/config.yml', $dir.'Levelled/storage.yml');
 
-
+$iconomy = @new iConomy($dir.'iConomy/accounts.mini', array('admin', 'ugcity'));
 
 ?>
 <div style="width: 49%; float: left;">
@@ -38,7 +40,7 @@ $status = @new Levelled($dir.'config.yml', $dir.'storage.yml');
         <tbody>
             <?php
             $i = 0;
-            foreach(@$status->getTopPoints() as $line) {
+            foreach(@$levelled->getTopPoints() as $line) {
                 $i++;
             ?>
             
@@ -53,7 +55,7 @@ $status = @new Levelled($dir.'config.yml', $dir.'storage.yml');
                     <?=round($line['points'])?>
                 </td>
                 <td>
-                    <?=$line['group'] == null ? '&mdash;' : @$status->getLevelName($line['group'])?>
+                    <?=$line['group'] == null ? '&mdash;' : @$levelled->getLevelName($line['group'])?>
                 </td>
             </tr>
             
@@ -86,7 +88,7 @@ $status = @new Levelled($dir.'config.yml', $dir.'storage.yml');
         <tbody>
             <?php
             $i = 0;
-            foreach(@$status->getTopTime() as $line) {
+            foreach(@$levelled->getTopTime() as $line) {
                 $i++;
                 
                 
@@ -103,7 +105,7 @@ $status = @new Levelled($dir.'config.yml', $dir.'storage.yml');
                     <?=floor($line['time'] / 3600) . ":" . str_pad(floor(($line['time'] % 3600) / 60), 2, '0') . " h"?>
                 </td>
                 <td>
-                    <?=$line['group'] == null ? '&mdash;' : @$status->getLevelName($line['group'])?>
+                    <?=$line['group'] == null ? '&mdash;' : @$levelled->getLevelName($line['group'])?>
                 </td>
             </tr>
             
@@ -114,9 +116,8 @@ $status = @new Levelled($dir.'config.yml', $dir.'storage.yml');
     </table>
 </div>
 <br style="clear: both;" />
-<div style="width: 49%; float: left;">
+<?php /*<div style="width: 49%; float: left;">
     <h3>Gesetzte Blöcke - Top 10</h3>
-    <!-- Placed Blocks -->
     <table style="width: 100%;">
         <thead>
             <tr>
@@ -137,7 +138,7 @@ $status = @new Levelled($dir.'config.yml', $dir.'storage.yml');
         <tbody>
             <?php
             $i = 0;
-            foreach(@$status->getTopPBlocks() as $line) {
+            foreach(@$levelled->getTopPBlocks() as $line) {
                 $i++;
             ?>
             
@@ -152,7 +153,7 @@ $status = @new Levelled($dir.'config.yml', $dir.'storage.yml');
                     <?=round($line['pblock'])?>
                 </td>
                 <td>
-                    <?=$line['group'] == null ? '&mdash;' : @$status->getLevelName($line['group'])?>
+                    <?=$line['group'] == null ? '&mdash;' : @$levelled->getLevelName($line['group'])?>
                 </td>
             </tr>
             
@@ -164,7 +165,6 @@ $status = @new Levelled($dir.'config.yml', $dir.'storage.yml');
 </div>
 <div style="width: 49%; float: right;">
     <h3>Abgebaute Blöcke - Top 10</h3>
-    <!-- Broken blocks -->
     <table style="width: 100%;">
         <thead>
             <tr>
@@ -185,7 +185,7 @@ $status = @new Levelled($dir.'config.yml', $dir.'storage.yml');
         <tbody>
             <?php
             $i = 0;
-            foreach(@$status->getTopBBlocks() as $line) {
+            foreach(@$levelled->getTopBBlocks() as $line) {
                 $i++;
             ?>
             
@@ -200,7 +200,7 @@ $status = @new Levelled($dir.'config.yml', $dir.'storage.yml');
                     <?=round($line['bblock'])?>
                 </td>
                 <td>
-                    <?=$line['group'] == null ? '&mdash;' : @$status->getLevelName($line['group'])?>
+                    <?=$line['group'] == null ? '&mdash;' : @$levelled->getLevelName($line['group'])?>
                 </td>
             </tr>
             
@@ -210,4 +210,33 @@ $status = @new Levelled($dir.'config.yml', $dir.'storage.yml');
         </tbody>
     </table>
 </div>
-<br style="clear: both;" />
+<br style="clear: both;" /> */?>
+<div style="margin: 0 auto; width: 50%">
+    <h3>Geld - Top 10</h3>
+    <table style="width: 100%">
+        <thead>
+            <tr>
+            <th>#</th>
+            <th>Spieler</th>
+            <th>Guthaben</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $i = 0;
+            foreach(@$iconomy->getTop() as $line) {
+                $i++;
+                number_
+            ?>
+            <tr>
+                <td><?=$i?>.</td>
+                <td><img src="http://minotar.net/helm/<?=$line['name']?>/24.png" style="vertical-align: middle; margin-right: 10px;" /> <?=$line['name']?></td>
+                <td><?=@number_format($line['balance'], 2, ',', ' ')?> U</td>
+            </tr>
+            <?php
+            }
+            ?>
+
+        </tbody>
+    </table>
+</div>

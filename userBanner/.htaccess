@@ -1,0 +1,8 @@
+# Avtivate mod_rewrite
+Options +FollowSymlinks
+RewriteEngine on
+
+# Rewrite $_GET, too
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^([\_\-a-zA-Z0-9]+)\.png$ userBanner.class.php?player=$1
