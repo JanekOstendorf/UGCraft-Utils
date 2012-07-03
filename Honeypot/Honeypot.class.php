@@ -58,16 +58,71 @@ class Honeypot {
 <html>
     <head>
         <title>'.$this->config->page_name.'</title>
+        <style type="text/css">
+            <!--
+
+            @font-face
+            { 
+                font-family: "URC Gothic L";
+                src: url(\'http://static.ugcraft.de/fonts/urw-gothic-l.ttf\') format("truetype");
+            }
+
+            table {
+                border: none;
+                font-family: Arial,Helvetiva, sans-serif;
+                font-size: 12px;
+                border-collapse: collapse;
+            }
+
+            table th, table td {
+                padding: 4px;
+                border: none;
+                vertical-align: text-top;
+            }
+
+            table tr {
+                background: none;
+                transition: background 0.3s;
+                -moz-transition: background 0.3s;
+                -webkit-transition: background 0.3s;
+                -o-transition: background 0.3s;
+            }
+
+            table tr:hover {
+                background: rgb(240,240,240);
+            }
+
+            table tr:hover.nohover {
+                background: none;
+            }
+
+            table th {
+                padding-bottom: 2px;
+                text-align: left;
+            }
+
+            table tr.header, thead tr {
+                border-bottom: 1px solid rgb(230,230,230)
+            }
+
+            table tr.header th {
+                color: #000;
+                font-family: \'URW Gothic L\', sans-serif;
+                font-size: 130%;
+                font-weight: normal;
+            }
+            -->
+        </style>
     </head>
     <body>
         <table style="width: 100%;">
             <thead>
                 <tr class="header">
-                    <th>Time</th>
-                    <th>Player</th>
-                    <th>Action</th>
-                    <th>Coordinates</th>
-                    <th>Count</th>
+                    <th style="width: 30%;">Time (UTC)</th>
+                    <th style="width: 25%;">Player</th>
+                    <th style="width: 15%;">Action</th>
+                    <th style="width: 20%;">Coordinates</th>
+                    <th style="width: 10%;">Count</th>
                 </tr>
             </thead>
             <tbody>';
@@ -109,7 +164,14 @@ class Honeypot {
                 
             }
             
-            $this->output .= "<tr><td>".$time."</td><td>".$player."</td><td>".$action."</td><td>".$world !== false ? $world.' ('.$x.', '.$y.','.$z.')' : '&ndash;'."</td><td>".$count !== false ? $count : '&ndash;'."</td></tr>";
+            $this->output .= "
+                <tr".($action == 'Banned' ? ' style="background: #e0e0e0;"' : '').">
+                    <td>".$time."</td>
+                    <td><a href=\"http://www.glizer.de/usrnotes/index.php?data=".$player."&sub=reputation\">".$player."</a></td>
+                    <td>".($action != 'Banned' ? $action : '<strong>'.$action.'</strong>')."</td>
+                    <td>".($world !== false ? $world.' ('.$x.', '.$y.','.$z.')' : '&ndash;')."</td>
+                    <td>".($count !== false ? $count : '&ndash;')."</td>
+                </tr>";
             
             
         }
