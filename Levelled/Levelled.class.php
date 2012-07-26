@@ -97,6 +97,16 @@ class Levelled {
         return $data;
         
     }
+
+    /**
+     * @param $test_arg
+     * @return array
+     */
+    public function testFunction($test_arg) {
+
+        return $this->getTopTime($test_arg);
+
+    }
     
     /**
      * Returns an array of the broken blocks Top 

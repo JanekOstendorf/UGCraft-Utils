@@ -53,7 +53,7 @@ else {
 }
 
 // Our nice class <3
-require_once './MinecraftQuery/MineStatus.class.php';
+require_once (defined('ABSPATH') ? ABSPATH : './').'MinecraftQuery/MineStatus.class.php';
 
 // Fetch status
 $ugcraft = new MineStatus($server, $port);

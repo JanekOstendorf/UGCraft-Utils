@@ -1,4 +1,4 @@
-# Avtivate mod_rewrite
+# Activate mod_rewrite
 Options +FollowSymlinks
 RewriteEngine on
 

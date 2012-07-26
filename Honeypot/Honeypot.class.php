@@ -43,6 +43,8 @@ class Honeypot {
             die('Error reading the logfile!');
             
         }
+
+        date_default_timezone_set('UTC');
         
         $this->generateTable();
         

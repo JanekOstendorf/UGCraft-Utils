@@ -1,5 +1,7 @@
 aktivierung/
 nbproject/
+.idea/
+cache/*
 
 #################
 ## Eclipse
